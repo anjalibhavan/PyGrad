@@ -13,6 +13,15 @@ Xdata = diabetes.data
 ydata = diabetes.target
 x_train,x_test,y_train,y_test=train_test_split(Xdata,ydata,random_state=42)
 
+# To add a dataset of your own, uncomment the following lines and comment out the previous four lines:
+'''
+import pandas as pd
+cancer=pd.read_csv('path of csv file')
+Xdata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
+ydata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
+x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
+'''
+
 # Initialize training parameters
 
 n_iterations=100
