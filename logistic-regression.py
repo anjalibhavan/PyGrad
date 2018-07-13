@@ -10,7 +10,7 @@ import numpy as np
 cancer = load_breast_cancer()
 Xdata = cancer.data
 ydata = cancer.target
-x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(Xdata,ydata,random_state=42)
 
 # To add a dataset of your own, uncomment the following lines and comment out the previous four lines:
 '''
@@ -25,24 +25,24 @@ x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
 
 thetaa = np.zeros(x_train.shape[1])
 alpha = 0.001
-num_epochs=1000
+num_epochs = 1000
 
 # Implementing the sigmoid function for calculating the hypotheses
 
 def sigmoid(a):
-    sigma=1/(1+np.exp(-a))
+    sigma = 1/(1+np.exp(-a))
     return sigma
 
 # Main function for Logistic Regression
 
 def logisticregression(X,theta,y):
-    Xtrans=X.transpose()
-    grad=0
+    Xtrans = X.transpose()
+    grad = 0
     for i in range(0,num_epochs):
-        h=sigmoid(np.dot(X,theta))
-        loss=h-y
-        gradient=np.dot(Xtrans,loss)
-        theta=theta-alpha*gradient
+        h = sigmoid(np.dot(X,theta))
+        loss = h-y
+        gradient = np.dot(Xtrans,loss)
+        theta = theta-alpha*gradient
     return theta
 
 
@@ -50,12 +50,12 @@ def logisticregression(X,theta,y):
 newtheta = logisticregression(x_train,thetaa,y_train)
 
 # Predictions using the above calculated weights
-selfpreds=np.round(sigmoid(np.dot(x_test,newtheta)))
+selfpreds = np.round(sigmoid(np.dot(x_test,newtheta)))
 
 # Comparison with scikit-learn's Logistic Regression classifier
-model=LogisticRegression()
+model = LogisticRegression()
 model.fit(x_train,y_train)
-modelpred=model.predict(x_test)
+modelpred = model.predict(x_test)
 
 # Final results
 print('Accuracy using scikit-learn model',accuracy_score(y_test,modelpred))
