@@ -21,10 +21,11 @@ ydata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv
 x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
 '''
 
-# Initializing weights and learning rate for training
+# Initializing weights, number of epochs and learning rate for training
 
 thetaa = np.zeros(x_train.shape[1])
 alpha = 0.001
+num_epochs=1000
 
 # Implementing the sigmoid function for calculating the hypotheses
 
@@ -37,7 +38,7 @@ def sigmoid(a):
 def logisticregression(X,theta,y):
     Xtrans=X.transpose()
     grad=0
-    for i in range(1,5000):
+    for i in range(0,num_epochs):
         h=sigmoid(np.dot(X,theta))
         loss=h-y
         gradient=np.dot(Xtrans,loss)
