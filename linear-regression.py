@@ -1,36 +1,57 @@
-alpha=0.5
+
 from sklearn.datasets import load_diabetes
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 import numpy as np
-thetaa=np.zeros(10)
 
 diabetes=load_diabetes()
 Xdata = diabetes.data
 ydata = diabetes.target
 x_train,x_test,y_train,y_test=train_test_split(Xdata,ydata,random_state=42)
 
-def linreg(X,theta,y):
+# Loading breast cancer (Wisconsin) in-built dataset. 
+
+'''
+import pandas as pd
+cancer=pd.read_csv('path of csv file')
+Xdata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
+ydata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
+x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
+'''
+
+# Initializing weights and learning rate for training
+
+thetaa = np.zeros(x_train.shape[1])
+alpha = 0.001
+
+# Main function for Linear Regression
+
+def linearregression(X,theta,y):
     Xtrans=X.transpose()
     grad=0
     for i in range(1,10000):
         h=np.dot(X,theta)
         loss=h-y
-        
         grad=np.dot(Xtrans,loss)
         theta=theta-alpha*grad
     return theta
 
 
+# Calculate weights of data for prediction
+newtheta=linearregression(x_train,thetaa,y_train)
+
+# Predictions using the above calculated weights
+preds=(np.dot(x_test,newtheta))
+
+# Comparison with scikit-learn's Linear Regressor
+
 model=LinearRegression()
 model.fit(x_train,y_train)
 modelpred=model.predict(x_test)
 
-newtheta=linreg(x_train,thetaa,y_train)
-preds=(np.dot(x_test,newtheta))
-
-print('self accuracy',mean_squared_error(y_test,preds))
-print('model accuracy',mean_squared_error(y_test,modelpred))
+# Final results
+print('self mean squared error',mean_squared_error(y_test,preds))
+print('model mean squared error',mean_squared_error(y_test,modelpred))
 
     
