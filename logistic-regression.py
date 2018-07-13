@@ -17,12 +17,13 @@ Xdata = cancer.data
 ydata = cancer.target
 x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
 
-# To add a dataset of your own:
+# To add a dataset of your own, uncomment the following lines and comment out the previous four lines:
 '''
 import pandas as pd
 cancer=pd.read_csv('path of csv file')
 Xdata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
 ydata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
+x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
 '''
 
 # Implementing the sigmoid function for calculating the hypotheses
@@ -43,8 +44,8 @@ def logisticregression(X,theta,y):
         theta=theta-alpha*gradient
     return theta
 
-# Calculate weights of data for prediction
 
+# Calculate weights of data for prediction
 newtheta = logisticregression(x_train,thetaa,y_train)
 
 # Predictions using the above calculated weights
@@ -56,7 +57,6 @@ model.fit(x_train,y_train)
 modelpred=model.predict(x_test)
 
 # Final results
-
 print('Accuracy using scikit-learn model',accuracy_score(y_test,modelpred))
 print('Accuracy using self implemented model',accuracy_score(y_test,selfpreds))
 
