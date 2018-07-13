@@ -5,18 +5,33 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import numpy as np
 
-thetaa=np.zeros(30)
-alpha=0.001
+# Initializing weights and learning rate for training
 
-cancer=load_breast_cancer()
+thetaa = np.zeros(30)
+alpha = 0.001
+
+# Loading breast cancer (Wisconsin) in-built dataset. 
+
+cancer = load_breast_cancer()
 Xdata = cancer.data
 ydata = cancer.target
-x_train,x_test,y_train,y_test=train_test_split(Xdata,ydata,random_state=42)
+x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
 
+# To add a dataset of your own:
+'''
+import pandas as pd
+cancer=pd.read_csv('path of csv file')
+Xdata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
+ydata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
+'''
+
+# Implementing the sigmoid function for calculating the hypotheses
 
 def sigmoid(a):
     sigma=1/(1+np.exp(-a))
     return sigma
+
+# Main function for Logistic Regression
 
 def logisticregression(X,theta,y):
     Xtrans=X.transpose()
@@ -28,15 +43,21 @@ def logisticregression(X,theta,y):
         theta=theta-alpha*gradient
     return theta
 
-newtheta=logisticregression(x_train,thetaa,y_train)
+# Calculate weights of data for prediction
 
-preds=np.round(sigmoid(np.dot(x_test,newtheta)))
+newtheta = logisticregression(x_train,thetaa,y_train)
 
+# Predictions using the above calculated weights
+selfpreds=np.round(sigmoid(np.dot(x_test,newtheta)))
+
+# Comparison with scikit-learn's Logistic Regression classifier
 model=LogisticRegression()
 model.fit(x_train,y_train)
-ypred=model.predict(x_test)
+modelpred=model.predict(x_test)
 
-print('logacc',accuracy_score(y_test,ypred))
-print('self accuracy',accuracy_score(y_test,preds))
+# Final results
+
+print('Accuracy using scikit-learn model',accuracy_score(y_test,modelpred))
+print('Accuracy using self implemented model',accuracy_score(y_test,selfpreds))
 
     
