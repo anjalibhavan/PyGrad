@@ -5,11 +5,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import numpy as np
 
-# Initializing weights and learning rate for training
-
-thetaa = np.zeros(30)
-alpha = 0.001
-
 # Loading breast cancer (Wisconsin) in-built dataset. 
 
 cancer = load_breast_cancer()
@@ -25,6 +20,11 @@ Xdata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv
 ydata=cancer.iloc[:,:] #set the indices as per the column orientation in the csv file
 x_train,x_test,y_train,y_test = train_test_split(Xdata,ydata,random_state=42)
 '''
+
+# Initializing weights and learning rate for training
+
+thetaa = np.zeros(x_train.shape[1])
+alpha = 0.001
 
 # Implementing the sigmoid function for calculating the hypotheses
 
