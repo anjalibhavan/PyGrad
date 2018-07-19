@@ -9,7 +9,7 @@ def get_batches(X,y,batch_size,i):
 
 # Mini-Batch Gradient Descent
 
-def minibatch(X,y,theta=np.empty(),learning_rate=0.1,batch_size=10):
+def MiniBatchGradientDescent(X,y,theta,learning_rate=0.1,batch_size=10):
     num_batches = int(X.shape[0]/batch_size)    
     gradient = 0
     for i in range(0,num_batches):
